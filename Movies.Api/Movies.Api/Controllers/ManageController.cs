@@ -25,44 +25,44 @@ namespace Movies.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            var movies = await _moviesService.GetAll();
+            var movies = _moviesService.GetAll();
 
             return movies is null ? NotFound("Movies not found") : Ok(movies.ToArray());
         }
 
         [HttpGet]
         [Route("/[controller]/{id}")]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public IActionResult Get([FromRoute] int id)
         {
-            var movie = await _moviesService.GetById(id);
+            var movie = _moviesService.GetById(id);
 
             return movie is null ? NotFound($"Movie with id {id} was not found") : Ok(movie);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MovieRequest request)
+        public IActionResult Post([FromBody] MovieRequest request)
         {
-            var response = await _moviesService.Add(new Movie { Id = _random.Next(), Name = request.Name, DirectorName = request.DirectorName });
+            var response = _moviesService.Add(new Movie { Id = _random.Next(), Name = request.Name, DirectorName = request.DirectorName });
 
             return Ok(response);
         }
 
         [HttpPut]
         [Route("/[controller]/{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] MovieRequest request)
+        public IActionResult Put([FromRoute] int id, [FromBody] MovieRequest request)
         {
-            var updatedMovie = await _moviesService.Update(id, request);
+            var updatedMovie = _moviesService.Update(id, request);
 
             return updatedMovie is null ? NotFound($"Movie with id {id} was not found") : Ok(updatedMovie);
         }
 
         [HttpDelete]
         [Route("/[controller]/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] int id)
         {
-            var deletedMovie = await _moviesService.Delete(id);
+            var deletedMovie = _moviesService.Delete(id);
 
             return deletedMovie is null ? NotFound($"Movie with id {id} was not found") : Ok();
         }

@@ -12,26 +12,26 @@ namespace Movies.Api.Services
     {
         private static readonly List<Movie> _movies = new List<Movie>();
 
-        public async Task<IEnumerable<Movie>> GetAll()
+        public IEnumerable<Movie> GetAll()
         {
-            return await Task.FromResult(_movies);
+            return _movies;
         }
 
-        public async Task<Movie> GetById(int id)
+        public Movie GetById(int id)
         {
-            return await Task.FromResult(_movies.Where(m => m.Id == id).FirstOrDefault());
+            return _movies.Where(m => m.Id == id).FirstOrDefault();
         }
 
-        public async Task<Movie> Add(Movie movie)
+        public Movie Add(Movie movie)
         {
             _movies.Add(movie);
 
-            return await Task.FromResult(movie);
+            return movie;
         }
 
-        public async Task<Movie> Update(int id, MovieRequest request)
+        public Movie Update(int id, MovieRequest request)
         {
-            var movie = await GetById(id);
+            var movie = GetById(id);
 
             if (movie != null)
             {
@@ -39,19 +39,19 @@ namespace Movies.Api.Services
                 movie.DirectorName = request.DirectorName;
             }
 
-            return await Task.FromResult(movie);
+            return movie;
         }
 
-        public async Task<Movie> Delete(int id)
+        public Movie Delete(int id)
         {
-            var movie = await GetById(id);
+            var movie = GetById(id);
 
             if (movie != null)
             {
                 _movies.RemoveAll(m => m.Id == id);
             }
 
-            return await Task.FromResult(movie);
+            return movie;
         }
     }
 }
