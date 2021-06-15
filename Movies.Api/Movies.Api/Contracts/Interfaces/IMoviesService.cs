@@ -7,14 +7,14 @@ namespace Movies.Api.Contracts.Interfaces
 {
     public interface IMoviesService
     {
-        public IEnumerable<Movie> GetAll();
+        public Task<IEnumerable<Movie>> GetAll();
 
-        public Movie GetById(int id);
+        public Task<Movie> GetById(int id);
 
-        public Movie Add(Movie movie);
+        public Task<Movie> Add(Movie movie);
 
-        public Movie Update(int id, MovieRequest request);
+        public Task<Movie> Update(int id, MovieRequest request);
 
-        public Movie Delete(int id);
+        public Task<Movie> Delete(int id);
     }
 }
